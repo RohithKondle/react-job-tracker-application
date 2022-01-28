@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import TableJob from "./TableDisplay/Table";
+import Form from "./Form/Form";
 
-function App() {
+const App = () => {
+  const [jobs, setJobs] = useState([
+    {
+      name: "Rohith",
+      job: "Dev",
+    },
+    {
+      name: "Varun",
+      job: "Colud",
+    },
+  ]);
+
+  const submitHandler = (formData) => {
+    console.log(formData);
+    setJobs([...jobs, formData]);
+  };
+
+  const deleteHandler = (index) => {
+    console.log(index);
+    setJobs(
+      jobs.filter((eachPerson, i) => {
+        return i !== index;
+      })
+    );
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
+      <Form formSubmitHandler={submitHandler} />
+      <TableJob data={jobs} onDelete={deleteHandler} />
     </div>
   );
 }
